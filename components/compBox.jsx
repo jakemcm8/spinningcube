@@ -1,19 +1,27 @@
 import ReactDOM from 'react-dom'
-import React, { useRef, useState, Suspense } from 'react'
+import React, { useEffect, useRef, useState, Suspense } from 'react'
 import { Canvas, useFrame, useLoader } from '@react-three/fiber'
-import Namer from './nameComponent'
 
 // import textures from '../textures'
-import {useTexture} from '@react-three/drei'
+import { useTexture } from '@react-three/drei'
+import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter';
 
 export default function Box(props) {
   // This reference will give us direct access to the mesh
+
   const mesh = useRef()
+  const exporter = new GLTFExporter();
   // Set up state for the hovered and active state
   const [hovered, setHover] = useState(false)
   const [active, setActive] = useState(false)
   // Subscribe this component to the render-loop, rotate the mesh every frame
   useFrame((state, delta) => (mesh.current.rotation.x += 0.01))
+  useEffect((options) => {
+    exporter.parse(mesh.current, function (gltf) {
+      props.setObj(gltf);
+    }, options); // you will have to provide the options here
+  })
+
   // Return view, these are regular three.js elements expressed in JSX
   const texture_1 = useTexture('../textures/one.jpeg');
   const texture_2 = useTexture('../textures/two.jpeg');
@@ -22,7 +30,7 @@ export default function Box(props) {
   const texture_5 = useTexture('../textures/five.jpeg');
   const texture_6 = useTexture('../textures/six.jpeg');
 
-  return typeof window === 'undefined'? null : (
+  return typeof window === 'undefined' ? null : (
     <mesh
       {...props}
       ref={mesh}

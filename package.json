@@ -11,12 +11,16 @@
   "dependencies": {
     "@react-three/drei": "^7.20.1",
     "@react-three/fiber": "^7.0.17",
+    "@walletconnect/web3-provider": "^1.6.6",
     "autoprefixer": "^10.4.0",
+    "metamask-react": "^2.0.2",
+    "moralis": "^0.0.131",
     "next": "12.0.1",
     "next-transpile-modules": "^9.0.0",
     "postcss": "^8.3.11",
     "react": "17.0.2",
-    "react-dom": "17.0.2",
+    "react-dom": "^17.0.2",
+    "react-moralis": "^0.2.8",
     "tailwindcss": "^2.2.19",
     "three": "^0.134.0"
   },
